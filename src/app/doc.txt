@@ -1,0 +1,14 @@
+So you have a recipe service. It contains
+- original lists of recipes
+- A way to get the copy of the original lists
+- A declaration that an event will be emitted. 
+Now in recipeItem, we emit the event and the event is "recipe" which we got as an Input from recipe lists
+After we emit it, we subscribe in the recipe component and tell SelectedRecipe to be what was emitted.
+That's really it.
+
+Shopping list
+We want to save the default shopping list items and make them inaccessible from outside. However, we want to use
+a copy of the default shopping lists. The method to add to the shopping list will stay in the service, but
+we will call the method from outside.
+
+

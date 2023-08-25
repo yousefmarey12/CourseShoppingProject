@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-xs-10">
+    <app-shopping-edit></app-shopping-edit>
+    <hr>
+    <ul class="list-group">
+      <!-- In the anchor tag, we toggle between the active class. The toggling between the active class
+      works perfectly fine. However, I can't delete specific anchor tags  -->
+      <a
+        class="list-group-item"
+        appToggleActiveClass
+        style="cursor: pointer"
+        *ngFor="let ingredient of ingredients">
+        {{ ingredient.name }} ({{ ingredient.amount }})
+      </a>
+    </ul>
+  </div>
+</div>
