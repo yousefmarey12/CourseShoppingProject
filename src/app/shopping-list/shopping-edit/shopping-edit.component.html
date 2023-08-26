@@ -1,4 +1,4 @@
-<form (ngSubmit)="onAddItem()" #form="ngForm">    
+<form (ngSubmit)="onAddOrEditItem()" #form="ngForm">    
       <div class="row">
         <div class="col-sm-5 form-group">
           <label for="name">Name</label>
@@ -11,7 +11,7 @@
             name="name"
             #name = 'ngModel'>
         </div>
-        <div class="col-sm-2 form-group">
+        <div class="col-md-2 form-group">
           <label for="amount">Amount</label>
           <input
             type="number"
@@ -26,7 +26,11 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" type="submit">Add</button>
+          <!-- 
+            As you can see here, editMode determines whether we are on Update or Add. For some reason
+            after we delete, it's always true. 
+          -->
+          <button class="btn btn-success" type="submit">{{ editMode ? 'Update' : 'Add'}}</button>
           <button class="btn btn-danger" type="button" (click) = "deleteItems()">Delete</button>
           <button class="btn btn-primary" type="button" (click) = "clearItems()">Clear</button>
         </div>

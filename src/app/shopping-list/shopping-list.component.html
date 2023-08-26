@@ -3,13 +3,18 @@
     <app-shopping-edit></app-shopping-edit>
     <hr>
     <ul class="list-group">
-      <!-- In the anchor tag, we toggle between the active class. The toggling between the active class
-      works perfectly fine. However, I can't delete specific anchor tags  -->
+      <!-- 
+        In the anchor tag, we toggle between the active class. The toggling between the active class
+        works perfectly fine. The appToggleActiveClass directive is responsible for selecting particular 
+        anchor tags. It is also responsible for deleting directives. Keep in mind the blue highlight is
+        from the "active" class that we add dynamically. 
+      -->
       <a
         class="list-group-item"
         appToggleActiveClass
         style="cursor: pointer"
-        *ngFor="let ingredient of ingredients">
+        (click) = "onSelectItem(i)"
+        *ngFor="let ingredient of ingredients; let i = index">
         {{ ingredient.name }} ({{ ingredient.amount }})
       </a>
     </ul>

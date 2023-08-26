@@ -7,31 +7,39 @@ import { Subject } from "rxjs";
 @Injectable()
 export class ShoppingList {
 
-
-  // We will use the recipeService (see below if needed)
-  constructor(private recipeService: RecipeService) {}
-
-  // Default set of ingredients that are to be ordered when you open the page
-    ingredients: Ingredient[] = [
+      // Default set of ingredients that are to be ordered when you open the page
+      ingredients: Ingredient[] = [
         new Ingredient('Apples', 5),
         new Ingredient('Tomatoes', 10),
       ];
 
-      ingredientsToDelete: Ingredient[] = [
-        
-      ]
-
-  
+      // We use this whenever we want to add ingredient/s.
       ingredientAdded = new Subject<Ingredient[] | Ingredient>();
+
+      // Whenever we want to delete the ingredient
       deleteShoppingIngredients = new Subject<String>()
 
-    // we use this method to add ingredients to the defualt ingredients array
+      // when we want to edit an ingredient
+      editIngredient = new Subject<number>()
+
+      // whether we can edit ingredients
+      editMode = new Subject<boolean>()
+
+      getIngredient(index: number) {
+        return this.ingredients[index]
+      }
+
       addIngredient(ingredient: Ingredient) {
         this.ingredients.push(ingredient);
       }
 
       addIngredients(ingredients: Ingredient[]) {
         this.ingredients.push(...ingredients)
+      }
+
+      // We update a particular ingredient using the index with a new ingredient we pass on
+      updateIngredient(index: number, ing: Ingredient) {
+        this.ingredients[index] = ing
       }
 
 

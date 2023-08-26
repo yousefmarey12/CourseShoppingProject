@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, OnInit, Renderer2, RendererFactory2 } from '@angular/core';
 import { ShoppingList } from './services/shoppinglist.service';
 import { Ingredient } from './shared/ingredient.model';
 
@@ -6,8 +6,13 @@ import { Ingredient } from './shared/ingredient.model';
 @Directive({
   selector: '[appToggleActiveClass]'
 })
-export class ToggleActiveClassDirective  {
-  constructor(private el: ElementRef, private renderer: Renderer2, private shoppingService: ShoppingList) { }
+export class ToggleActiveClassDirective implements OnInit  {
+  constructor(private el: ElementRef, private renderer: Renderer2, private shoppingService: ShoppingList,
+    private rendererFactory: RendererFactory2) { }
+  ngOnInit(): void {
+    this.Renderer = this.rendererFactory.createRenderer(null, null);
+  }
+    private Renderer: Renderer2
 
   @HostListener("click") toggleOpenClass() {
     if (!this.el.nativeElement.classList.contains("active")) {
@@ -21,10 +26,15 @@ export class ToggleActiveClassDirective  {
 
 
 
-deleteIngredients() {
+deleteItem() {
+  // We call this method so that any anchor tag that has a class of 'active' gets removed
   if (this.el.nativeElement.classList.contains("active")) {
-    this.renderer.setStyle(this.el.nativeElement, 'display', 'none')
-  }
+    let element = this.el.nativeElement;
+    let parent = this.renderer.parentNode(element);
+    this.Renderer.removeChild(parent, element)  }
 }
 
+checkIfAnyActive(): boolean {
+    return this.el.nativeElement.classList.contains('active')
+}
 }
